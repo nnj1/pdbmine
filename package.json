@@ -1,0 +1,27 @@
+{
+  "name": "pdbmine",
+  "version": "1.0.0",
+  "description": "A Node.js API for the RCSB Protein Data Bank (PDB)",
+  "main": "pdbmine.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nnj1/pdbmine.git"
+  },
+  "keywords": [
+    "pdb",
+    "rcsb",
+    "api"
+  ],
+  "author": "Newlyn Joseph",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nnj1/pdbmine/issues"
+  },
+  "homepage": "https://github.com/nnj1/pdbmine#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
