@@ -97,4 +97,13 @@ pdbmine.prototype.query = function(query, cb){
   );
 };
 
+pdbmine.prototype.download = function(id, format, cb){
+  var site = 'https://files.rcsb.org/view/' + id + '.' + format;
+  request.get(site,
+    function (error, response, body) {        
+        return body;
+    }
+  );
+};
+
 module.exports = new pdbmine()
