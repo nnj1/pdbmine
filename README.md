@@ -18,6 +18,13 @@ miner.query('ribozyme', function(result){
   console.log(result);
 });
 ```
+You can download a `pdb` or `cif` format file of the structure of interest:
+```javascript
+miner.download('5k7c', 'pdb', function(data){
+  fs = require('fs');
+  fs.writeFileSync('5k7c.pdb', data);
+});
+```
 You can also get info on certain structures by calling the following function. You pass in either a single PDB-ID or a list, a single parameter or a list of parameters, and a callback function. 
 ```javascript
 miner.describe_pdb(['100D','4OJI'], ['depositionDate', 'experimentalTechnique'], function(result){
