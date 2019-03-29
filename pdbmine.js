@@ -71,8 +71,8 @@ pdbmine.prototype.describe_pdb = function(id, params, cb) {
         console.log('error:', error); // Print the error if one occurred
         console.log('statusCode:', response && response.statusCode); 
       }else{
-        //console.log(body)
-        cb(csvTojs(body));
+        returnthing = csvTojs(body);
+        cb(returnthing);
       }
       
     });
@@ -85,6 +85,21 @@ pdbmine.prototype.query = function(query, cb){
     body: '<orgPdbQuery><queryType>org.pdb.query.simple.AdvancedKeywordQuery</queryType><description>Text Search</description><keywords>'+ query+'</keywords></orgPdbQuery>',
     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     },
+    function (error, response, body) {        
+        if (!error && response.statusCode == 200) {
+          ids = body.split('\n');
+          ids.pop();
+          cb(ids);
+        }else{
+          console.log(error);
+        }
+    }
+  );
+};
+
+pdbmine.prototype.get_all_ids = function(cb){
+  var site = 'https://www.rcsb.org/pdb/rest/customReport.csv?pdbids=*&customReportColumns=structureId&format=csv&service=wsfile';
+  request.get(site,
     function (error, response, body) {        
         if (!error && response.statusCode == 200) {
           ids = body.split('\n');

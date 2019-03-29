@@ -5,26 +5,65 @@ miner.describe_pdb(['100D','4OJI'], ['depositionDate', 'experimentalTechnique'],
   console.log(result);
 });
 
-miner.query('steitz joseph',function(result){
-  console.log(result);
+miner.query('ribozyme',function(result){
+	miner.describe_pdb(result, ['depositionDate', 'experimentalTechnique','structureId'], function(result){
+		console.log(result);
+
+	});
 });
 
 miner.query('ribosome', function(result){
-  miner.describe_pdb(result, ['chainLength', 'resolution'], function(stats){
+  miner.describe_pdb(result, ['chainLength', 'resolution', 'macromoleculeType'], function(stats){
+    
     console.log(stats.length);
+
+    proteins = stats.filter((thing => thing.macromoleculeType === 'Protein'))
+    console.log(proteins.length);
+    rnas = stats.filter((thing => thing.macromoleculeType === 'RNA'))
+    console.log(rnas.length);
+    dnas = stats.filter((thing => thing.macromoleculeType === 'DNA'))
+    console.log(dnas.length);
+    
     lens = [];
     reses = [];
-    for(s of stats) {
+    for(s of proteins) {
       lens.push(s['chainLength']);
       reses.push(s['resolution']);
     }
-    var trace1 = {
+    var proteins = {
       x: lens,
       y: reses,
       mode: "markers",
       type: "scatter"
     };
-    var data = [trace1];
+
+    lens = [];
+    reses = [];
+    for(s of rnas) {
+      lens.push(s['chainLength']);
+      reses.push(s['resolution']);
+    }
+    var rnas = {
+      x: lens,
+      y: reses,
+      mode: "markers",
+      type: "scatter"
+    };
+
+    lens = [];
+    reses = [];
+    for(s of dnas) {
+      lens.push(s['chainLength']);
+      reses.push(s['resolution']);
+    }
+    var dnas = {
+      x: lens,
+      y: reses,
+      mode: "markers",
+      type: "scatter"
+    };
+
+    var data = [proteins, rnas, dnas];
     var layout = {
       title: "chainLength vs resolution",
       xaxis: {

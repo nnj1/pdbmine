@@ -22,6 +22,10 @@
   },
   "homepage": "https://github.com/nnj1/pdbmine#readme",
   "dependencies": {
+    "json-query": "^2.2.2",
+    "jsonpath": "^1.0.1",
+    "jsonpath-plus": "^0.18.0",
+    "plotly": "^1.0.6",
     "request": "^2.88.0"
   }
 }

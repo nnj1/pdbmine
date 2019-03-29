@@ -12,9 +12,15 @@ Just require the package.
 ```javascript
 var miner = require('pdbmine');
 ```
-You can query the PDB with a string, and a callback function:
+You can query the PDB with a string, and a callback function. The result will be an array of PDB ID strings.
 ```javascript
 miner.query('ribozyme', function(result){
+  console.log(result);
+});
+```
+You can also just get a list of all the PDB IDs:
+```javascript
+miner.get_all_ids(function(result){
   console.log(result);
 });
 ```
