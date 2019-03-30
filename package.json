@@ -1,6 +1,6 @@
 {
   "name": "pdbmine",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "description": "A Node.js API for the RCSB Protein Data Bank (PDB)",
   "main": "pdbmine.js",
   "scripts": {
@@ -22,9 +22,6 @@
   },
   "homepage": "https://github.com/nnj1/pdbmine#readme",
   "dependencies": {
-    "json-query": "^2.2.2",
-    "jsonpath": "^1.0.1",
-    "jsonpath-plus": "^0.18.0",
     "plotly": "^1.0.6",
     "request": "^2.88.0"
   }

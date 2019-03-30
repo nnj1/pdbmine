@@ -33,11 +33,30 @@ miner.download('5k7c', 'pdb', function(data){
 ```
 You can also get info on certain structures by calling the following function. You pass in either a single PDB-ID or a list, a single parameter or a list of parameters, and a callback function. 
 ```javascript
-miner.describe_pdb(['100D','4OJI'], ['depositionDate', 'experimentalTechnique'], function(result){
+miner.describe_pdb(['100D','4OJI'], ['depositionDate', 'macromoleculeType'], function(result){
   console.log(result);
 });
 ```
-Valid parameters can be accessed via ```miner.fields```. They are as follows:
+Valid parameters can be accessed via ```miner.fields```. They are also listed at the bottom of this `README`
+You can filter the results from `describe_pdb()` using the standard `Array` filtering method:
+```javascript
+miner.describe_pdb(['100D','4OJI'], ['depositionDate', 'macromoleculeType'], function(result){
+  filtered_result = result.filter(obj => obj.macromoleculeType == 'Protein');
+  console.log(filtered_result);
+});
+```
+Don't like callback functions? You can avoid passing in callback functions and instead use Promises as follows:
+```javascript
+miner.query('ribozyme')
+	 .then(results => miner.describe_pdb(results, ['macromoleculeType']))
+	 .then(descriptions => descriptions.filter(obj => obj.macromoleculeType == 'RNA'))
+	 .then(rnas => {
+	 	console.log(rnas);
+	 });
+```
+
+
+### Parameters
 
 | Report Name | Field Name |
 |--------------------------------------------------------------------------|------------------------------|

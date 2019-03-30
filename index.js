@@ -1,17 +1,36 @@
 var miner = require('./pdbmine');
 var plotly = require('plotly')('nnj1', 'qNWRTvydjaDRDLUrXamR');
 
+/*
+miner.describe_pdb('*', ['depositionDate', 'experimentalTechnique','macromoleculeType'])
+	 .then(results => results.filter(obj => obj.macromoleculeType == 'Protein'))
+	 .then(obj=> {
+	 	console.log(obj);
+	 });
+*/	 
+
+/*
 miner.describe_pdb(['100D','4OJI'], ['depositionDate', 'experimentalTechnique'], function(result){
   console.log(result);
 });
+*/
 
-miner.query('ribozyme',function(result){
+
+/*miner.query('ribozyme',function(result){
 	miner.describe_pdb(result, ['depositionDate', 'experimentalTechnique','structureId'], function(result){
 		console.log(result);
 
 	});
-});
+}); */
 
+miner.query('ribozyme')
+	 .then(results => miner.describe_pdb(results, ['macromoleculeType']))
+	 .then(descriptions => descriptions.filter(obj => obj.macromoleculeType == 'RNA'))
+	 .then(rnas => {
+	 	console.log(rnas);
+	 });
+
+/*
 miner.query('ribosome', function(result){
   miner.describe_pdb(result, ['chainLength', 'resolution', 'macromoleculeType'], function(stats){
     
@@ -82,3 +101,4 @@ miner.query('ribosome', function(result){
     });
   });
 });
+*/
