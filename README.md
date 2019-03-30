@@ -38,6 +38,7 @@ miner.describe_pdb(['100D','4OJI'], ['depositionDate', 'macromoleculeType'], fun
 });
 ```
 Valid parameters can be accessed via ```miner.fields```. They are also listed at the bottom of this `README`
+
 You can filter the results from `describe_pdb()` using the standard `Array` filtering method:
 ```javascript
 miner.describe_pdb(['100D','4OJI'], ['depositionDate', 'macromoleculeType'], function(result){
