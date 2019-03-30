@@ -229,16 +229,33 @@ pdbmine.prototype.get_all_ids = function(cb) {
  * @param {function} cb - The callback function
  */
 pdbmine.prototype.download = function(id, format, cb) {
-  var site = 'https://files.rcsb.org/view/' + id + '.' + format;
-  request.get(site,
-    function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        cb(body);
-      } else {
-        console.log(error);
+  if(cb){
+    var site = 'https://files.rcsb.org/view/' + id + '.' + format;
+    request.get(site,
+      function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          cb(body);
+        } else {
+          console.log(error);
+        }
       }
-    }
-  );
+    );
+  }
+  else{
+    return new Promise(function(resolve, reject){
+      var site = 'https://files.rcsb.org/view/' + id + '.' + format;
+      request.get(site,
+        function(error, response, body) {
+          if (!error && response.statusCode == 200) {
+            resolve(body);
+          } else {
+            reject(error);
+          }
+        }
+      );
+    });
+  }
+  
 };
 
 module.exports = new pdbmine()
