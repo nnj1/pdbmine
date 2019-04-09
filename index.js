@@ -23,82 +23,55 @@ miner.describe_pdb(['100D','4OJI'], ['depositionDate', 'experimentalTechnique'],
 	});
 }); */
 
-miner.query('ribozyme')
+/*miner.query('ribozyme')
 	 .then(results => miner.describe_pdb(results, ['macromoleculeType']))
 	 .then(descriptions => descriptions.filter(obj => obj.macromoleculeType == 'RNA'))
 	 .then(rnas => {
 	 	console.log(rnas);
 	 });
+*/
 
-/*
-miner.query('ribosome', function(result){
-  miner.describe_pdb(result, ['chainLength', 'resolution', 'macromoleculeType'], function(stats){
-    
-    console.log(stats.length);
-
-    proteins = stats.filter((thing => thing.macromoleculeType === 'Protein'))
-    console.log(proteins.length);
-    rnas = stats.filter((thing => thing.macromoleculeType === 'RNA'))
-    console.log(rnas.length);
-    dnas = stats.filter((thing => thing.macromoleculeType === 'DNA'))
-    console.log(dnas.length);
-    
-    lens = [];
-    reses = [];
-    for(s of proteins) {
-      lens.push(s['chainLength']);
-      reses.push(s['resolution']);
-    }
-    var proteins = {
-      x: lens,
-      y: reses,
-      mode: "markers",
-      type: "scatter"
-    };
-
-    lens = [];
-    reses = [];
-    for(s of rnas) {
-      lens.push(s['chainLength']);
-      reses.push(s['resolution']);
-    }
-    var rnas = {
-      x: lens,
-      y: reses,
-      mode: "markers",
-      type: "scatter"
-    };
-
-    lens = [];
-    reses = [];
-    for(s of dnas) {
-      lens.push(s['chainLength']);
-      reses.push(s['resolution']);
-    }
-    var dnas = {
-      x: lens,
-      y: reses,
-      mode: "markers",
-      type: "scatter"
-    };
-
-    var data = [proteins, rnas, dnas];
-    var layout = {
-      title: "chainLength vs resolution",
-      xaxis: {
-        title: "chainLength",
-        showgrid: false,
-        zeroline: false
-      },
-      yaxis: {
-        title: "resolution (angstroms)",
-        showline: false
-      }
-    };
-    var graphOptions = {layout: layout, filename: "residue_len_vs_resolution", fileopt: "overwrite"};
-    plotly.plot(data, graphOptions, function (err, msg) {
-        console.log(msg);
+miner.query('transmembrane protein', function(result){
+  miner.describe_pdb(result, ['kabschSander'], function(stats){
+    data = '';
+    stats.forEach(function(struc){
+    	data += struc.kabschSander;
     });
+
+    console.log(data.length);
+
+    // A map (in JavaScript, an object) for the character=>count mappings
+	var counts = {};
+
+	// Misc vars
+	var ch, index, len, count;
+
+	// Loop through the string...
+	for (index = 0, len = data.length; index < len; ++index) {
+	    // Get this character
+	    ch = data.charAt(index); // Not all engines support [] on strings
+
+	    // Get the count for it, if we have one; we'll get `undefined` if we
+	    // don't know this character yet
+	    count = counts[ch];
+
+	    // If we have one, store that count plus one; if not, store one
+	    // We can rely on `count` being falsey if we haven't seen it before,
+	    // because we never store falsey numbers in the `counts` object.
+	    counts[ch] = count ? count + 1 : 1;
+	}
+
+	var data = [
+	  {
+	    x: Object.keys(counts),
+	    y: Object.values(counts),
+	    type: "bar"
+	  }
+	];
+	var graphOptions = {layout: {title: "Frequency of DSSP Assignments"}, filename: "basic-bar", fileopt: "overwrite"};
+	plotly.plot(data, graphOptions, function (err, msg) {
+	    console.log(msg);
+	});
+
   });
 });
-*/

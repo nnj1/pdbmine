@@ -5,6 +5,7 @@ A Node.js API for the RCSB Protein Data Bank (PDB)
 ```bash
 npm install pdbmine
 ```
+If you plan on using `pdbmine` in your research/project please cite us at https://arxiv.org/abs/1904.03801
 
 ## Usage
 
