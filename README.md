@@ -60,6 +60,8 @@ miner.query('ribozyme')
 
 ### Parameters
 
+This is a full-list of parameters that can be provided to the `describe_pdb` member function. These parameters are identical to the usual XML parameters that can be used to query the PDB. They are availible at https://www.rcsb.org/pdb/results/reportField.do.
+
 | Report Name | Field Name |
 |--------------------------------------------------------------------------|------------------------------|
 | Structure Summary Report (StructureSummary) | atomSiteCount |
